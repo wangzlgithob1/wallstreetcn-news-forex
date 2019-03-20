@@ -11,13 +11,13 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!--数据库连接信息 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/dynamicquartz?useUnicode=true&amp;characterEncoding=utf8"
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8"
                         userId="root" password="123456"/>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!--生成模型的包名和位置-->
-        <javaModelGenerator targetPackage="cn.bupt.zcc.dynamicquartz.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.crawler.wallstreetcnnewsforex.domain" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimString" value="true"/>
         </javaModelGenerator>
@@ -26,12 +26,22 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!--生成DAO的包名和位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.bupt.zcc.dynamicquartz.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.crawler.wallstreetcnnewsforex.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="schedule_job" domainObjectName="ScheduleJob" enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" ></table>
+        <table tableName="article_info" domainObjectName="ArticleInfo"   enableCountByExample="false"
+               enableUpdateByExample="false"  enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false" >
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <columnOverride column="src_content" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </table>
+
+        <table tableName="manager_info" domainObjectName="ManagerInfo" enableCountByExample="false"
+               enableUpdateByExample="false"  enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false" ></table>
+
+
     </context>
 
 
