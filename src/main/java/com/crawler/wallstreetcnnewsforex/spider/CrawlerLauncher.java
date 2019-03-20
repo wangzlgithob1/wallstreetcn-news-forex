@@ -19,4 +19,5 @@ public class CrawlerLauncher {
 				.thread(1)
 				.run();
 	}
+
 }
