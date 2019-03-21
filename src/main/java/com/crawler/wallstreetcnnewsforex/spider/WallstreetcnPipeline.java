@@ -9,8 +9,6 @@ import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
-import java.util.Date;
-
 @Slf4j
 @Component
 public class WallstreetcnPipeline implements Pipeline {
@@ -20,25 +18,13 @@ public class WallstreetcnPipeline implements Pipeline {
 
 	@Override
 	public void process(ResultItems resultItems, Task task) {
-		ArticleInfo article0 = resultItems.get(ArticleInfo.class.getSimpleName());
 
-		log.info("{}+++++++++++",article0);
-
-		ArticleInfo article = new ArticleInfo();
-		article.setArticleId(12121212);
-		article.setTitle("test");
-		article.setSummary("test");
-		article.setLabel("test");
-		article.setSource("test");
-		article.setTime(new Date());
-		article.setContent("test");
-		article.setImage("test");
-		article.setInputTime(new Date());
-		article.setUpdateTime(new Date());
+		ArticleInfo article = resultItems.get(ArticleInfo.class.getSimpleName());
 
 		if (article != null) {
 			articleInfoService.insert(article);
 		}
+
 	}
 
 }
