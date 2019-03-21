@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ArticleInfoService {
 
-    List<ArticleInfo> selectAll();
+    List<ArticleInfo> selectAll(int pageNum,int pageSize);
 
     int insert(ArticleInfo record);
 

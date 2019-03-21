@@ -2,10 +2,14 @@ package com.crawler.wallstreetcnnewsforex.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.crawler.wallstreetcnnewsforex.domain.ArticleInfo;
 import com.crawler.wallstreetcnnewsforex.service.ArticleInfoService;
 import com.crawler.wallstreetcnnewsforex.service.ManagerInfoService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class WallstreetcnController {
@@ -23,7 +27,31 @@ public class WallstreetcnController {
     public JSONObject articleSelectTest(){
 
         JSONObject result = new JSONObject();
-        result.put("data",articleInfoService.selectAll());
+        List<ArticleInfo> articleInfoList = articleInfoService.selectAll(1,10);
+        result.put("data",articleInfoList);
+        result.put("count",articleInfoList.size());
+        return result;
+
+    }
+
+    @RequestMapping("/article/select/test1")
+    @ResponseBody
+    public JSONObject articleSelectTest1(@RequestBody JSONObject params){
+
+        int pageNum = params.getInteger("pageNum");
+        int pageSize = params.getInteger("pageSize");
+
+        JSONObject result = new JSONObject();
+
+        List<ArticleInfo> articleInfoList = articleInfoService.selectAll(pageNum,pageSize);
+        PageInfo<ArticleInfo> pageInfo = new PageInfo<>(articleInfoList);
+
+
+        result.put("data",articleInfoList);
+        result.put("count",articleInfoList.size());
+        result.put("getPages",pageInfo.getPages());
+        result.put("getTotal",pageInfo.getTotal());
+
         return result;
 
     }
