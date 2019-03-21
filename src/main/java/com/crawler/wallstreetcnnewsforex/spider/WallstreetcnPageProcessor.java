@@ -8,7 +8,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
-import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Json;
 import java.util.ArrayList;
@@ -19,9 +18,14 @@ import java.util.List;
 public class WallstreetcnPageProcessor implements PageProcessor {
 	
 	public Date flag;
+
+	public WallstreetcnPageProcessor(Date flag){
+		this.flag=flag;
+	}
 	
 	@Override
 	public void process(Page page) {
+
 		if (page.getUrl().regex("apiv1/content/fabricate-articles").match()) {
 			String raw = page.getRawText();
 			JSONObject json = JSONObject.parseObject(raw);
@@ -47,6 +51,7 @@ public class WallstreetcnPageProcessor implements PageProcessor {
 			}
 		} else if (page.getUrl().regex("https://api-prod.wallstreetcn.com/apiv1/content/articles/\\d+\\?extract=0").match()) {
 			Json json = page.getJson();
+			System.out.println("===============222"+json.toString());
 			String articleId = json.jsonPath("$.data.id").get();
 			String title = json.jsonPath("$.data.title").get();
 			String summary = json.jsonPath("$.data.content_short").get();
@@ -60,8 +65,9 @@ public class WallstreetcnPageProcessor implements PageProcessor {
 
 			content = Jsoup.clean(content, new Whitelist().addTags("img").addAttributes("img", "data-original", "align", "alt", "height", "src", "title", "width")
 	                .addProtocols("img", "src", "http", "https"));
-			
-			
+
+
+			System.out.println(title);
 			ArticleInfo article = new ArticleInfo();
 			article.setArticleId(Integer.parseInt(articleId));
 			article.setTitle(title);
@@ -86,16 +92,4 @@ public class WallstreetcnPageProcessor implements PageProcessor {
 		return site;
 	}
 	
-	public static void main(String[] args) {
-		String url = "https://wallstreetcn.com/news/forex";
-
-		//接口
-//		String url = "https://api.wallstreetcn.com/apiv1/content/fabricate-articles?channel=forex&accept=article&limit=20";
-		//文章页面
-//		String url = "https://api-prod.wallstreetcn.com/apiv1/content/articles/3492833?extract=0";
-		Spider.create(new WallstreetcnPageProcessor())
-				.addUrl(url)
-				.thread(1)
-				.run();
-	}
 }

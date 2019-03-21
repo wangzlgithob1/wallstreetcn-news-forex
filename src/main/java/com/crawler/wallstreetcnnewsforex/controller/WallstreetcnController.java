@@ -15,6 +15,10 @@ public class WallstreetcnController {
     @Autowired
     ManagerInfoService managerInfoService;
 
+    /**
+     * 获取article json
+     * @return
+     */
     @GetMapping("/article/select/test")
     public JSONObject articleSelectTest(){
 
@@ -25,6 +29,10 @@ public class WallstreetcnController {
     }
 
 
+    /**
+     * 获取manager json
+     * @return
+     */
     @GetMapping("/manager/select/test")
     public JSONObject ManagerSelectTest(){
 

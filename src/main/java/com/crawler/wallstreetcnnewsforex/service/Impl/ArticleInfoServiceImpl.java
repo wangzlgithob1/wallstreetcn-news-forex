@@ -19,5 +19,10 @@ public class ArticleInfoServiceImpl implements ArticleInfoService {
         return articleInfoMapper.selectAll();
     }
 
+    @Override
+    public int insert(ArticleInfo record) {
+        return articleInfoMapper.insert(record);
+    }
+
 
 }

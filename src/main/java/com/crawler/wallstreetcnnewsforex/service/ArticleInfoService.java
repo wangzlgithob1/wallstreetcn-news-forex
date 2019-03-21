@@ -9,5 +9,7 @@ public interface ArticleInfoService {
 
     List<ArticleInfo> selectAll();
 
+    int insert(ArticleInfo record);
+
 
 }
