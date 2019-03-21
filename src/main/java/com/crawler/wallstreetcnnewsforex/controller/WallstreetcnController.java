@@ -23,7 +23,7 @@ public class WallstreetcnController {
      * 获取article json
      * @return
      */
-    @GetMapping("/article/select/test")
+    @GetMapping("/article/select/get")
     public JSONObject articleSelectTest(){
 
         JSONObject result = new JSONObject();
@@ -34,7 +34,7 @@ public class WallstreetcnController {
 
     }
 
-    @RequestMapping("/article/select/test1")
+    @RequestMapping("/article/select/post")
     @ResponseBody
     public JSONObject articleSelectTest1(@RequestBody JSONObject params){
 
